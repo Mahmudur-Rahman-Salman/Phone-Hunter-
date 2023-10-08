@@ -43,6 +43,7 @@ const displayPhones = (phones, dataLimit) => {
                 <p class="card-text">
                     ${phone.slug}
                 </p>
+                <button onclick="loadPhoneDetails('${phone.slug}')" class="btn btn-outline-primary">Show more details</button>
             </div>
        </div>
         `;
@@ -87,3 +88,24 @@ const toggleLoaderSpinner = (isLoading) => {
 document.getElementById("btn-see-more").addEventListener("click", function () {
   processMoreData();
 });
+
+
+
+// single load phone details 
+
+const loadPhoneDetails = async (id) => {
+    const url = `https://openapi.programming-hero.com/api/phone/${id}`
+    const res = await fetch(url); 
+    const data = await res.json(); 
+    console.log(data.data); 
+}
+
+
+// show daya on keypress 
+
+document.getElementById("search-box").addEventListener("keypress", function(e){
+    // console.log(e.key); 
+    if(e.key === 'Enter'){
+        processMoreData(10); 
+    }
+} )
