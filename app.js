@@ -43,7 +43,7 @@ const displayPhones = (phones, dataLimit) => {
                 <p class="card-text">
                     ${phone.slug}
                 </p>
-                <button onclick="loadPhoneDetails('${phone.slug}')" class="btn btn-outline-primary">Show more details</button>
+                <button onclick="loadPhoneDetails('${phone.slug}')" class="btn btn-outline-primary"data-bs-toggle="modal" data-bs-target="#phoneDetailsModal">Show more details</button>
             </div>
        </div>
         `;
@@ -89,23 +89,48 @@ document.getElementById("btn-see-more").addEventListener("click", function () {
   processMoreData();
 });
 
-
-
-// single load phone details 
+// single load phone details
 
 const loadPhoneDetails = async (id) => {
-    const url = `https://openapi.programming-hero.com/api/phone/${id}`
-    const res = await fetch(url); 
-    const data = await res.json(); 
-    console.log(data.data); 
-}
+  const url = `https://openapi.programming-hero.com/api/phone/${id}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  //   console.log(data.data);
+  displaySinglePhoneDetails(data.data);
+};
 
+// display single phone details
 
-// show daya on keypress 
+const displaySinglePhoneDetails = (phone) => {
+    console.log(phone); 
+    const modalTitle = document.getElementById("phoneDetailsModalLabel"); 
+    modalTitle.innerText = phone.name; 
 
-document.getElementById("search-box").addEventListener("keypress", function(e){
-    // console.log(e.key); 
-    if(e.key === 'Enter'){
-        processMoreData(10); 
+    let modalDetails = document.getElementById("modalBodyDetails"); 
+    modalDetails.innerHTML = `
+    <p>Release Date: ${phone.releaseDate ? phone.releaseDate : "No release data found"}</p>
+    <p>storage: ${phone.mainFeatures ? phone.mainFeatures.storage : "no storage data found"}</p>
+    <p>memory: ${phone.mainFeatures ? phone.mainFeatures.memory : "no memory data found"}</p>
+    <p>displaySize: ${phone.mainFeatures ? phone.mainFeatures.displaySize : "no storage data found"}</p>
+     <p>others: ${phone.others ? phone.others.Bluetooth : "No bluetooth data found"}</p>
+    `; 
+};
+
+// show data on keypress
+
+document
+  .getElementById("search-box")
+  .addEventListener("keypress", function (e) {
+    // console.log(e.key);
+    if (e.key === "Enter") {
+      processMoreData(10);
     }
-} )
+  });
+
+
+  loadPhones("apple"); 
+
+//   <p>Release Date: ${phone.releaseDate ? phone.releaseDate : "No release data found"}</p>
+//   <p>Storage: ${phone.mainfeatures.storage ? phone.mainfeatures.storage : "No storage data found"}</p>
+//   <p>display: ${phone.mainfeatures.displaySize ? phone.mainfeatures.displaySize : "No display Size data found"}</p>
+//   <p>memory: ${phone.mainfeatures.memory ? phone.mainfeatures.memory : "No memory data found"}</p>
