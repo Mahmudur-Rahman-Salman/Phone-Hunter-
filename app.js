@@ -128,9 +128,4 @@ document
   });
 
 
-  loadPhones("apple"); 
-
-//   <p>Release Date: ${phone.releaseDate ? phone.releaseDate : "No release data found"}</p>
-//   <p>Storage: ${phone.mainfeatures.storage ? phone.mainfeatures.storage : "No storage data found"}</p>
-//   <p>display: ${phone.mainfeatures.displaySize ? phone.mainfeatures.displaySize : "No display Size data found"}</p>
-//   <p>memory: ${phone.mainfeatures.memory ? phone.mainfeatures.memory : "No memory data found"}</p>
+// loadPhones("apple"); 
